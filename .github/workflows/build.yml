@@ -1,0 +1,24 @@
+name: Build Godot Export
+
+on: [push, pull_request]
+
+jobs:
+  export:
+    name: Android Export
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Download & Export Godot Project
+        uses: simonb97/godot-export@v3.0.0
+        with:
+          godot_version: 4.3
+          platform: android
+          export_preset: Android
+          
+      - name: Upload Finished APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-game-apk
+          path: build/android/
